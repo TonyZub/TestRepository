@@ -1,49 +1,15 @@
 <!DOCTYPE html>
 <html>
   <script>
-      function GetHTML(){
+      async function GetHTML(){
         
-
-        // let response = await fetch("https://script.google.com/macros/s/AKfycbxa-5-cuYo4LZ5RRpD0bCntb04rFxSXUbbbINzttxWiMI4cu7z9JGfBeF1aFKotSwKUqA/exec");
-
-        // if (response.ok) { // если HTTP-статус в диапазоне 200-299
-        //   // получаем тело ответа (см. про этот метод ниже)
-        //   let responseText = response.text();
-        //   Rerender(responseText)
-        // } else {
-        //   alert("Ошибка HTTP: " + response.status);
-        // }
-
-        let xhr = new XMLHttpRequest();
-
-        // 2. Настраиваем его: GET-запрос по URL /article/.../load
-        xhr.open('GET', 'https://script.google.com/macros/s/AKfycbxtlUCnI6tR54lPLvQUaoffqth8_tF_LCV3xE6uTFxG/exec');
-
-        // 3. Отсылаем запрос
-        xhr.send();
-
-        // 4. Этот код сработает после того, как мы получим ответ сервера
-        xhr.onload = function() {
-          if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
-            alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
-          } else { // если всё прошло гладко, выводим результат
-            alert(`Готово, получили ${xhr.response}`); // response -- это ответ сервера
-          }
-        };
-
-        // xhr.onprogress = function(event) {
-        //   if (event.lengthComputable) {
-        //     alert(`Получено ${event.loaded} из ${event.total} байт`);
-        //   } else {
-        //     alert(`Получено ${event.loaded} байт`); // если в ответе нет заголовка Content-Length
-        //   }
-
-        // };
-
-        xhr.onerror = function() {
-          alert("Запрос не удался");
-        };
-
+      let URL = 'https://script.google.com/macros/s/AKfycbxtlUCnI6tR54lPLvQUaoffqth8_tF_LCV3xE6uTFxG/exec';
+        let response = await fetch(URL);
+        if (response.ok) {
+            alert("успешно");
+        } else {
+          alert("не успешно");
+        }
       }
 
       function Rerender(responseText){
