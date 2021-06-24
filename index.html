@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <base target="_top">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
-      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
-      integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-  </head>
-  <body>
- 	<div class="container">
- 		<div class="row">
- 			<div class="col-12">
- 				<button class="btn btn-primary" onclick="SaveCookie()">Сохранить куки</button>
- 				<button class="btn btn-primary" onclick="ShowCookie()">Показать куки</button>
- 			</div>
- 		</div>
- 	</div>
- 	<script type="text/javascript">
- 		
- 		const COOKIE_NAME = "testCookie";
- 		const COOKIE_VALUE = "i_am_cookie";
- 		var cookies = getCookies();
+  <script>
+      function GetHTML(){
+        
 
- 		function SaveCookie(){
- 			setCookie(COOKIE_NAME, COOKIE_VALUE);
- 		}
+        // let response = await fetch("https://script.google.com/macros/s/AKfycbxa-5-cuYo4LZ5RRpD0bCntb04rFxSXUbbbINzttxWiMI4cu7z9JGfBeF1aFKotSwKUqA/exec");
 
- 		function ShowCookie(){
- 			ShowChosenCookie(COOKIE_NAME);
- 		}
+        // if (response.ok) { // если HTTP-статус в диапазоне 200-299
+        //   // получаем тело ответа (см. про этот метод ниже)
+        //   let responseText = response.text();
+        //   Rerender(responseText)
+        // } else {
+        //   alert("Ошибка HTTP: " + response.status);
+        // }
 
- 		function setCookie(name,value) {
-		    if(name != "") document.cookie = name + "=" + (value || "");
-		    cookies = getCookies();
-		}
+        let xhr = new XMLHttpRequest();
 
-		function getCookies() {
-		    return document.cookie
-			  .split(';')
-			  .map(cookie => cookie.split('='))
-			  .reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
-		}
+        // 2. Настраиваем его: GET-запрос по URL /article/.../load
+        xhr.open('GET', 'https://script.google.com/macros/s/AKfycbxtlUCnI6tR54lPLvQUaoffqth8_tF_LCV3xE6uTFxG/exec');
 
-		function ShowChosenCookie(name){
-			
-			alert(cookies[name]);
-			//alert(document.cookie);
-		}
+        // 3. Отсылаем запрос
+        xhr.send();
 
- 	</script>
-  </body>
+        // 4. Этот код сработает после того, как мы получим ответ сервера
+        xhr.onload = function() {
+          if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+            alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+          } else { // если всё прошло гладко, выводим результат
+            alert(`Готово, получили ${xhr.response}`); // response -- это ответ сервера
+          }
+        };
+
+        // xhr.onprogress = function(event) {
+        //   if (event.lengthComputable) {
+        //     alert(`Получено ${event.loaded} из ${event.total} байт`);
+        //   } else {
+        //     alert(`Получено ${event.loaded} байт`); // если в ответе нет заголовка Content-Length
+        //   }
+
+        // };
+
+        xhr.onerror = function() {
+          alert("Запрос не удался");
+        };
+
+      }
+
+      function Rerender(responseText){
+        document.open();
+        document.write(responseText);
+        document.close(); 
+      }
+
+      GetHTML();
+    </script>
 </html>
